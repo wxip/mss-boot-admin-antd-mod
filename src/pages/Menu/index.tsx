@@ -132,6 +132,22 @@ const TableList: React.FC = () => {
       },
     },
     {
+      title: fieldIntl(intl, 'defaultTenant'),
+      dataIndex: 'default',
+      search: false,
+      valueType: 'switch',
+      valueEnum: {
+        false: {
+          text: fieldIntl(intl, 'options.false'),
+          status: 'false',
+        },
+        true: {
+          text: fieldIntl(intl, 'options.true'),
+          status: 'true',
+        },
+      },
+    },
+    {
       title: fieldIntl(intl, 'sort'),
       dataIndex: 'sort',
       search: false,

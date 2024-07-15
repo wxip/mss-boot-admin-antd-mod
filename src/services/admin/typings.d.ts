@@ -1,4 +1,6 @@
 declare namespace API {
+  type AccessType = 'DIRECTORY' | 'MENU' | 'API' | 'COMPONENT';
+
   type API = {
     /** CreatedAt create time */
     createdAt?: string;
@@ -44,7 +46,7 @@ declare namespace API {
     min?: number;
     pattern?: string;
     required?: boolean;
-    type?: string;
+    type?: RuleType;
     validateTrigger?: string;
     warningOnly?: boolean;
     whitespace?: boolean;
@@ -61,6 +63,15 @@ declare namespace API {
     valueEnum?: Record<string, any>;
     valueType?: string;
   };
+
+  type DataScope =
+    | 'all'
+    | 'currentDept'
+    | 'currentAndChildrenDept'
+    | 'customDept'
+    | 'self'
+    | 'selfAndChildren'
+    | 'selfAndAllChildren';
 
   type deleteApisIdParams = {
     /** id */
@@ -152,7 +163,7 @@ declare namespace API {
     /** Sort 排序 */
     sort?: number;
     /** Status 状态 */
-    status?: string;
+    status?: Status;
     /** TenantID tenant id */
     tenantID?: string;
     /** UpdatedAt update time */
@@ -549,7 +560,7 @@ declare namespace API {
     /** Remark 备注 */
     remark?: string;
     /** Statue 状态 */
-    status?: string;
+    status?: Status;
     /** TenantID tenant id */
     tenantID?: string;
     /** UpdatedAt update time */
@@ -623,13 +634,13 @@ declare namespace API {
     /** Sort 排序 */
     sort?: number;
     /** Status 状态 */
-    status?: string;
+    status?: Status;
     /** Target 新页面打开 */
     target?: string;
     /** TenantID tenant id */
     tenantID?: string;
     /** Type 菜单类型 */
-    type?: string;
+    type?: AccessType;
     /** UpdatedAt update time */
     updatedAt?: string;
   };
@@ -720,11 +731,15 @@ declare namespace API {
     /** TenantID tenant id */
     tenantID?: string;
     title?: string;
-    type?: string;
+    type?: NoticeType;
     /** UpdatedAt update time */
     updatedAt?: string;
     userID?: string;
   };
+
+  type NoticeType = 'notification' | 'message' | 'event' | 'mail';
+
+  type OAuth2Provider = 'github' | 'lark';
 
   type OauthToken = {
     /** AccessToken is the token that authorizes and authenticates
@@ -758,7 +773,7 @@ The Type method returns either this or "Bearer", the default. */
     /** Remark 备注 */
     remark?: string;
     /** Status 状态 */
-    status?: string;
+    status?: Status;
     /** TenantID tenant id */
     tenantID?: string;
     /** UpdatedAt update time */
@@ -791,7 +806,7 @@ The Type method returns either this or "Bearer", the default. */
     /** CreatedAt create time */
     createdAt?: string;
     /** DataScope 数据权限 */
-    dataScope?: string;
+    dataScope?: DataScope;
     /** DeptIDSArr 部门id数组 */
     deptIDS?: string[];
     /** ID primary key */
@@ -803,7 +818,7 @@ The Type method returns either this or "Bearer", the default. */
     /** Sort 排序 */
     sort?: number;
     /** Status 状态 */
-    status?: string;
+    status?: Status;
     /** TenantID tenant id */
     tenantID?: string;
     /** UpdatedAt update time */
@@ -930,13 +945,29 @@ The Type method returns either this or "Bearer", the default. */
     name?: string;
     remark?: string;
     root?: boolean;
-    /** Status 状态 */
-    status?: string;
+    status?: Status;
     /** TenantID tenant id */
     tenantID?: string;
     /** UpdatedAt update time */
     updatedAt?: string;
   };
+
+  type RuleType =
+    | 'string'
+    | 'number'
+    | 'boolean'
+    | 'method'
+    | 'regexp'
+    | 'integer'
+    | 'float'
+    | 'object'
+    | 'enum'
+    | 'date'
+    | 'url'
+    | 'hex'
+    | 'email';
+
+  type Scheme = 'yaml' | 'yml' | 'json';
 
   type SetAuthorizeRequest = {
     paths?: string[];
@@ -953,13 +984,15 @@ The Type method returns either this or "Bearer", the default. */
     time?: string;
   };
 
+  type Status = '' | 'enabled' | 'disabled' | 'locked';
+
   type SystemConfig = {
     /** Content 内容 */
     content?: string;
     /** CreatedAt create time */
     createdAt?: string;
     /** Ext 扩展名 */
-    ext: string;
+    ext: Scheme;
     /** ID primary key */
     id?: string;
     /** 内置配置 */
@@ -993,8 +1026,7 @@ The Type method returns either this or "Bearer", the default. */
     python?: string;
     remark?: string;
     spec?: string;
-    /** Status 状态 */
-    status?: string;
+    status?: Status;
     /** TenantID tenant id */
     tenantID?: string;
     timeout?: number;
@@ -1049,8 +1081,7 @@ The Type method returns either this or "Bearer", the default. */
     name?: string;
     password?: string;
     remark?: string;
-    /** Status 状态 */
-    status?: string;
+    status?: Status;
     /** UpdatedAt update time */
     updatedAt?: string;
     username?: string;
@@ -1125,13 +1156,12 @@ The Type method returns either this or "Bearer", the default. */
     province?: string;
     role?: Role;
     signature?: string;
-    /** Status 状态 */
-    status?: string;
+    status?: Status;
     tags?: string[];
     /** TenantID tenant id */
     tenantID?: string;
     title?: string;
-    type?: string;
+    type?: OAuth2Provider;
     /** UpdatedAt update time */
     updatedAt?: string;
     username?: string;
@@ -1149,9 +1179,8 @@ The Type method returns either this or "Bearer", the default. */
     passwordStrength?: string;
     post?: Post;
     role?: Role;
-    /** Status 状态 */
-    status?: string;
-    type?: string;
+    status?: Status;
+    type?: OAuth2Provider;
     username?: string;
   };
 
@@ -1181,7 +1210,7 @@ The Type method returns either this or "Bearer", the default. */
     sub?: string;
     /** TenantID tenant id */
     tenantID?: string;
-    type?: string;
+    type?: OAuth2Provider;
     unionID?: string;
     /** UpdatedAt update time */
     updatedAt?: string;

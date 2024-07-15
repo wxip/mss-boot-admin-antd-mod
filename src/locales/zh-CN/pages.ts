@@ -163,6 +163,7 @@ export default {
   'pages.fields.code': '编码',
   'pages.fields.table': '表名',
   'pages.fields.type': '类型',
+  'pages.fields.defaultTenant': '默认租户专属',
   'pages.fields.status': '状态',
   'pages.fields.description': '描述',
   'pages.fields.createdAt': '创建时间',
